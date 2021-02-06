@@ -1,0 +1,272 @@
+\documentclass[sigconf,natbib=false]{acmart}
+
+\usepackage[style=ACM-Reference-Format,backend=bibtex,sorting=none]{biblatex}
+\addbibresource{sample-base.bib}
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+%% NOTE that a single column version may be required for
+%% submission and peer review. This can be done by changing
+%% the \doucmentclass[...]{acmart} in this template to
+%% \documentclass[manuscript,screen,review]{acmart}
+%%
+%% To ensure 100% compatibility, please check the white list of
+%% approved LaTeX packages to be used with the Master Article Template at
+%% https://www.acm.org/publications/taps/whitelist-of-latex-packages
+%% before creating your document. The white list page provides
+%% information on how to submit additional LaTeX packages for
+%% review and adoption.
+%% Fonts used in the template cannot be substituted; margin
+%% adjustments are not allowed.
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\pagestyle{plain} % removes running headers
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+    \title{Implementation of a supply chain network using Hyperledger Fabric}
+    \pagestyle{plain} % CUSTOMLY ADDED
+
+    \author{Andi Braimllari}
+    \affiliation{
+    \institution{Technische Universität München}
+    \city{München}
+    \country{Germany}
+    }
+    \email{ge46huj@mytum.de}
+
+    \author{Ata Mazloumian}
+    \affiliation{
+    \institution{Technische Universität München}
+    \city{München}
+    \country{Germany}
+    }
+    \email{ata_mazloumian@mytum.de}
+
+    \begin{abstract}
+        Hyperledger Fabric is a highly prevalent and modular blockchain ecosystem. In this project, it is used as a platform to implement and simulate a supply chain in its bare basics. Fabric is a permissioned blockchain platform that is specifically designed for enterprise use cases. In Fabric, all members of the network have identities, and should be authenticated for participation in the network. The presence of channels in this framework, makes the private communication for a subset of the participants possible. Only members of the respective channels have access to its data. Based on these design features, Fabric ensures privacy and confidentiality of transactions which is of high concern and priority in a variety of industry-related use cases.\\
+        Fabric users can configure many building components of the framework based on their needs. Smart contracts, which define the business logic, can be implemented in different programming languages. The Membership Service Provider (MSP) is used to manage the roles and permissions of different entities. The Ordering Service (OS) is responsible for achieving consensus and ordering of transactions in blocks, as well as sending them to other peers.
+        In our scenario a simple case of a supply chain is implemented. There is a manufacturer and a retailer which communicate through the blockchain platform. Together they send the requests and provide countless services exposed as transactions.
+    \end{abstract}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+    \keywords{blockchain, smart contract, Hyperledger Fabric, supply chain}
+
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+
+%%%\begin{teaserfigure}
+%%%  \includegraphics[width=\textwidth]{sampleteaser}
+%%%  \caption{Seattle Mariners at Spring Training, 2010.}
+%%%  \Description{Enjoying the baseball game from the third-base
+%%%  seats. Ichiro Suzuki preparing to bat.}
+%%%  \label{fig:teaser}
+%%% \end{teaserfigure}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+    \maketitle
+
+    \section{Introduction}
+    A blockchain is a network containing consistent copies of a ledger. In the network, smart contracts are used by applications to interact with the ledger by generating transactions. The transactions will be distributed to all network members and recorded in the copies of the ledger. The applications can be used by clients or network administrators.\cite{hyperledgerIntroduction}\\
+    The most famous application of blockchain networks is Bitcoin, which is a cryptocurrency. Ethereum is another cryptocurrency that was designed based on the main features of Bitcoin as well as on the concept of smart contracts. Blockchain networks such as Bitcoin and Ethereum are considered as public permissionless blockchains where everyone is allowed to participate without identification.
+    As blockchain technologies became more popular, they received attention in enterprise use cases application. In such scenarios, certain requirements are necessary which are not provided or handled in many of the current public blockchain technologies. For example, in financial transactions, it is essential for the participants to be identified.\cite{hyperledgerIntroduction}\\
+    Hyperledger Fabric is a distributed ledger technology that is designed considering the enterprise use case requirements. Fabric is an open-source project that was initially developed by IBM and Digital Asset. It supports the deployment of smart contracts. It is a permissioned network, meaning all participants should be authorized and identifiable. The privacy of transactions is assured in Fabric, and high performance and low latency in the confirmation of transactions are important criteria that are considered in the design of Fabric.\cite{hyperledgerIntroduction}
+
+    \section{Fabric model}
+    There are certain features integrated into Fabric architecture design that make it a fit blockchain solution for enterprise use cases. These features are:\cite{FabricModel}
+    \begin{itemize}
+        \item Assets: By definition of the assets, every entity with a monetary value can be exchanged in the network.
+        \item Chaincode: By the separation of the chaincode execution and transaction ordering, the performance and scalability is optimized
+        \item Ledger Features: The transaction history is stored immutably for each channel by its shared ledger.
+        \item Privacy: Channels and private data collections provide private transactions.
+        \item Security and Membership Services: A trusted model is created with the help of permissioned membership services. All transactions can be traced by the authorized members.
+        \item Consensus: Flexibility and scalability that are necessary for enterprise use cases are achieved through the implemented consensus mechanism.
+    \end{itemize}
+    \subsection{Assets}
+    Fabric assets include a wide variety of concepts. They can be either tangible or intangible. Tangible examples can be real estate and hardware, while intangible examples can be contracts. In Fabric, the state of assets can be modified by the application of chaincode transactions. Assets can be shown as key-value pairs in binary or JSON format.\cite{FabricModel}
+    \subsection{Chaincode}
+    Chaincode defines the business logic. It is software that includes the definition of assets and transaction instructions for modification of assets. Chaincode defines the rules for reading and modifying the state database of the ledger.\cite{FabricModel}
+    \subsection{Ledger Features}
+    The ledger includes a sequenced and immutable record of all transactions that lead to state changes in the network. As participants execute transactions, state transitions occur. The result of the transactions is a set of key-value pairs. These results are stored in the ledger as create, update, or delete transactions.\\
+    A ledger in Fabric consists of a blockchain to store the immutable sequential blocks and the state database. Each channel has one ledger, and all peers in a channel have a copy of that ledger. The ledger has certain design features. For querying the ledger, key-based lookups can be used. Read-only queries by using a rich query language as history queries are also available. In the ledger, transactions are added in blocks and sent from an ordering service to peers connecting in a channel. They include read and write sets. Moreover, they contain the signatures for endorsing peers that validated transactions using endorsement policies. To assure the states of assets were not modified after the chaincode execution, validation checks are also applied before extending the blocks. In a channel's ledger, a configuration block is responsible for maintaining the policy definitions, and access control lists. Channels also contain a Membership Service Provider that is used for the derivation of crypto materials.\cite{FabricModel}
+    \subsection{Privacy}
+    As mentioned earlier, in Fabric an immutable ledger and chaincode exists for each channel. The chaincode can be used for applying modification to assets. This modification is performed in form of updating the key-values. If all participants of the network share a common channel, the ledger can be accessed by all members of the network. In another scenario, the ledger can be set to private, so it can be accessible only by a set of participants. In this case, the subset of participants creates a separate channel to isolate their transactions and ledger. To keep a balance between transparency and privacy, chaincode can be installed on the peers that need to have access for reading and writes. Without installation of the chaincode on other peers, they are not able to perform read and writes.\cite{FabricModel}\\
+    In another case, the transaction data can also be kept confidential by a set of organizations. This can be done by using private data collections to isolate data in a private database. This database is logically separate from the channel ledger.\\
+    It is also possible to either partially or completely encrypt values within the chaincode. The encryption can be done by applying cryptographic algorithms such as AES. The encrypted data can only be decrypted by users who have access to the respective key.\cite{FabricModel}
+    \subsection{Security and Membership Services}
+    In the Fabric network, all participants are identified and known to each other. Moreover, data access can be controlled by the generation of cryptographic certificates for different network components. This feature and the structural design features embedded in channels makes Fabric one of the best choices for the cases that privacy and confidentiality are considered as a vital requirement.\cite{FabricModel}
+    \subsection{Consensus}
+    By a plain definition, consensus implies agreeing upon the order of transactions that are done by a single function. However, the consensus is more complicated and includes all stages in the transactions flow starting from proposal and endorsement, and continuing with ordering and ending in commit of the transactions. The consensus concept in Fabric is designed considering the whole stages that are necessary to verify the correctness of transactions.\\
+    As the order of transactions in a block meets the policy checks, the consensus occurs. The checks include endorsement policies and system chaincodes. Policies indicate which members must endorse each transaction. The specified members also deploy system chaincodes to check if enough endorsements are delivered by the appropriate entities. Finally, a versioning check takes place before new blocks are appended to the ledger. This is done to agree upon the current state of the ledger. It prevents issues that might cause serious problems in data integrity such as double cost operations.
+    Additionally, identity verification is done during the life cycle of transactions. Access control lists are implemented on all layers of the network. In conclusion, the consensus is not only considered as the agreement on the order of the transactions, however it is the result of the verification and checks in the whole life cycle of a transaction.\cite{FabricModel}
+
+    \section {Fabric comparison with other Blockchain networks}
+    One of the main difference points that make Hyperledger unique compared to many other platforms, is that Hyperledger was established under the Linux Foundation which is very successful in deploying open source projects under open governance. Hyperledger Fabric is governed by multiple organizations. More than 200 developers work on the project from over 35 organizations.\\
+    While other distributed ledger platforms support constrained domain-specific languages(DSL), Fabric is the first platform that supports the implementation of smart contracts in general-purpose programming languages such as Java, Go, and Node.js. This feature is most advantageous for the enterprises since additional training to learn a DSL language is not required.\\
+    In a public permissionless network, participants are unknown to each other. In such networks, basically everyone can participate anonymously, therefore there is no trust except for the state of the blockchain which is immutable. It is the reason that permissionless blockchains use a mined cryptocurrency or transaction fees which are an economic motivation that balances the costs of participating in such networks with potential trust issues. The consensus in such networks is byzantine fault-tolerant that is based on proof of work (PoW). In contrast, Fabric is a permissioned network. It means participants can be identified. A pemissioned blockchain can be used by a group of participants that have a common goal but may not fully trust each other since the transactions are secured. The trust among the participants is built by the implementation of a governance model such as a legal agreement. This feature allows the blockchains to use crash fault-tolerant (CFT) or byzantine fault-tolerant (BFT) consensus protocols. This is more cost-efficient since mining is no longer required.\cite{hyperledgerIntroduction}\\
+    Another advantage of the permissioned network is that users cannot use malicious code through smart contracts. The reason is all participants are known to each other and their actions are recorded using an endorsement policy.\\
+    One of the key features of Fabric is its modularity and configurability. The architecture can be configured to meet a wide variety of use cases in the industry. Most of the components of the Fabric network are pluggable and can be configured based on the requirements of different use cases.
+    The Fabric consists of the following components:\cite{hyperledgerIntroduction}
+    \begin{itemize}
+        \item An ordering service that is responsible for ordering transactions to reach consensus. It also forms transactions into blocks and delivers the blocks to peers in the network.
+        \item A  membership service provider that assigns identities to network members.
+        \item A peer-to-peer gossip service for sending the blocks generated by the ordering nodes.
+        \item Smart contracts (also known as chaincodes) that run in an isolated environment such as Docker.
+        \item A ledger that supports different DBMSs.
+        \item An endorsement and validation policy
+    \end{itemize}
+    Smart contracts are also known as chaincode in Fabric. A smart contract is a business logic piece of an application that gets its security from the consensus mechanisms between the peers in the blockchain. In a network, there can be many smart contracts that run concurrently and are deployed dynamically. Also, the application code in smart contracts is treated as untrusted. Most of the platforms that are capable of deploying smart contracts have an order-execute architecture. In such architecture, the consensus protocol first validates and orders transactions, and then propagates them to all of the existing peer nodes in the network. In the next step, each peer executes the transactions sequentially. Many of the blockchain platforms, whether they are public or permissionless, such as Ethereum, Tendermint, Chain, and Quorum, use the order-execute architecture.\cite{hyperledgerIntroduction}\\
+    In a blockchain that operates on an order-execute architecture, the smart contracts are required to be deterministic, otherwise, there might be a case that consensus not be reached. In many platforms smart contracts are implemented in non-standard or domain-specific languages such as Solidity, to remove the non-deterministic operations. The use of such languages reduces flexibility. It can be also expensive for enterprises as their developers have to learn a new language. Moreover, the sequential execution of a transaction in all nodes affects performance and scalability.\\
+    In Fabric a new approach for the execution of transactions is applied. The new architectural design is called execute-order-validate. It addresses all the challenges in the former approaches. In this architecture the execution of transactions has three major steps:
+    \begin{itemize}
+        \item Endorsing a transaction by execution and checking its correctness
+        \item Order transaction using a consensus protocol
+        \item validate transactions using an endorsement policy before committing them to the ledger
+    \end{itemize}
+    The endorsement policy used in Fabric is application-specific. The policy determines certain peer nodes to make an endorsement for the correct execution of a smart contract. Therefore, to satisfy the endorsement policy of a transaction, only a subset of nodes need to participate. It enables the network to execute parallel transactions. As a result, the performance and scalability are increased. Besides, there exists no non-determinism in the network since all inconsistencies in transactions are eliminated before the ordering phase, and it is the main reason that Fabric supports general-purpose programming languages.\\
+    In permissionless blockchains privacy is an important issue. Since the byzantine fault-tolerant model is applied in the networks, every transaction and the code for it is visible to every node in the network. This can cause a problem in some of the enterprise use cases. As an example, in a supply chain network, a certain group of consumers might be given exclusive privileges. In a transparent network where each participant can see all the transactions, implementation of such a business model could be impossible as all the consumers want to have the same privileges.\\
+    Several approaches are taken to tackle this issue of confidentiality. One of the approaches is encrypting data, however, in a network that is based on a proof of work(PoW) as its consensus model, the encrypted data is accessible in each node. Given enough time and resources, the encryption can be broken. This is a risk that cannot be taken in many of the enterprise use cases. Another approach is zero-knowledge proofs (ZKP). Currently, the computation needed for this approach is expensive.\\
+    Fabric as a permissioned platform addresses the issue of privacy by its channel architecture and private data feature. This feature allows participants in a Fabric network to form a sub-network where only a set of transactions have visibility to each member. Moreover, only the participants of each channel can access the chaincode and transactions in the channel. This preserves privacy and confidentiality.\cite{hyperledgerIntroduction}
+
+    \section{Fabric Architecture}
+    In this section, a more detailed explanation is given regarding the Fabric building components. These components turn Fabric into a platform that can be used for enterprise use cases.
+    \subsection{Peers}
+    Peers are the main building blocks of a blockchain network. They host ledgers and chaincode. More precisely, they host instances of ledgers and chaincodes. This redundancy is beneficial since it avoids single points of failure. A peer can host multiple ledgers at the same time. Usually, at least one chaincode is installed on the peer for querying and updating the ledger. To access the ledger, mainly there are two types of interactions between applications and peers:  query, and update interactions. To start an interaction, the application should establish a connection to the peer. Applications can get connected to peers by using the APIs provided by Fabric SDK. In the next step, an application can invoke a chaincode. For query transactions the result can be returned immediately as the local copy of the ledger hosted by one peer is sufficient, however for the update query, consensus should be made through the interaction of other peers and ordering nodes. This will be further discussed in the Transaction Flow section.
+    A blockchain network is formed by organizations that own multiple peers. Each organization can contain specific applications that are used to connect with peers of it to modify the ledger data in copies of the peers.\cite{peer}
+
+    \subsection {Ledger}
+    A ledger stores facts about a business object. These facts include information about the state of the object and the transactions that lead to the current state. The state of an object can be changed by the execution of different transactions, however, the history of transactions is immutable.\\
+    In Fabric, the ledger consists of the world state and blockchain. In a world state, the current values for attributes of a business object are stored. The states can have simple values, as in key-value pairs, or compound values as an object. In Fabric, there are two implementations for the world state database: LevelDB, and CouchDB. LevelDB is the default database and is appropriate for storing key-value pairs. It runs in the same operating system as the peer node. CouchDB is the better choice for storing JSON objects. It supports more complicated queries and runs in a separate operating system process as the peer node.\\
+    Blockchain stores all the previous ledger states. It consists of linked blocks, which contain a sequence of transactions, and each transaction represents a query or update to the world state. The process of sequencing blocks is managed by the ordering service. It will be properly addressed in the next sections. Each block in the blockchain has three main sections: header, data, and metadata. The parts of transactions in a block are header, signature, proposal, response, and endorsement.\cite{ledger}.
+    \subsection{Channel}
+    Channels are a component in Hyperledger Fabric that enables private communication through multiple network members. The transactions in the network are executed on channels by authorized and authenticated members on the channel. Membership Service Provider is responsible for giving authenticated identities to a member joining the channel.\\
+    To create a new channel, the client SDK can be used to call the configuration system chaincode. Then a genesis block is created for the channel ledger. The configuration information is stored in this block. The genesis block is shared with a new member as it joins the channel.
+    In each channel, a leading peer is elected for communication with the ordering service. The ordering service sends the blocks to the leading peer. The blocks are then distributed by application of the gossip protocol to other peers.\\
+    Each one of the anchor peers in the network can be a member of different channels, and access multiple ledgers. However, data cannot pass through multiple channels. Moreover, the information about transactions and ledger states is only available for peers that are verified members of each channel. This capability of Fabric satisfies private and confidential transactions for members.\cite{channel}
+    \subsection{Smart Contracts and Chaincode}
+    For the interaction of multiple businesses, common sets of rules should be made. These sets of rules define the business model as contracts. In a blockchain network, these contracts turn into executable programs that are called smart contracts.
+    In Hyperledger Fabric, smart contracts define the business logic, and when packaged and deployed into the network, they are known as chaincodes. Smart contracts can be used to get, put, or delete states in the world state. Smart contracts in Fabric can be implemented in different programming languages such as Go, Java, or JavaScript. An important part of each smart contract is its endorsement policy. It indicates which organizations should sign a transaction so it can be considered valid.
+    In addition to the smart contracts for business processes, there are system chaincodes in Fabric that define low-level code used for system interactions. We explain briefly these chaincodes in the following part:
+    \begin{itemize}
+        \item \_lifecycle: runs in all peers and manages the installation of chaincode
+        \item Lifecycle system chaincode (LSCC): manages the lifecycle of chaincode
+        \item Configuration system chaincode (CSCC): runs in all peers and is used for handling changes in chaincode configuration.
+        \item Query system chaincode (QSCC): runs in all peers and provides APIs for querying
+        \item Endorsement system chaincode (ESCC): runs in endorsing peers and used for transaction signature.
+        \item Validation system chaincode (ESCC): used for validating transactions
+    \end{itemize}
+    Before a chaincode can be used, the organizations on the channel should reach an agreement on how it is operated. This process is included in the chaincode lifecycle. Installing the chaincode is completed in the following steps:
+    \begin{itemize}
+        \item Package the chaincode: first, chaincode should be packaged into a tar file. It can be done by using Fabric peer binaries, Node Fabric SDK, or third-party tools. The packaged file should have a specific format which is done automatically if Fabric peer binaries and the Fabric SDKs are used. The tar file should have a ".tar .gz" extension and contain a metadata file "code.tar.gz" file that contains chaincode files.
+        \item Install chaincode on peers: The chaincode package should be installed in every peer that executes transactions. This step is completed using the Peer Administrator. The result of a successful install is a chaincode package identifier. This identifier has a package label combined with the hash of the package.
+        \item Approval of chaincode definition: Before the chaincode can be started on the channel, a sufficient number of organizations must approve its definition. The number of approving organizations is determined by LifecycleEndorsment policy of the channel. The chaincode definition includes the following attributes:
+        \begin{itemize}
+            \item Name: The name used by applications for invoking the chaincode.
+            \item Version: The version number of the package
+            \item Sequence: the number of times the chaincode is defined. upgrades to the chaincode definition will increment the number.
+            \item Endorsement Policy: specifies which organizations are required to execute and validate transactions.
+            \item Initialization: The init function used for chaincode initialization
+        \end{itemize}
+        \item Commit of the chaincode definition to channel: When a sufficient number of organizations approve the chaincode definition, an organization commits the definition on the channel. In the first step, the commit transaction proposal is sent to the peers of channel members. The peers then query the chaincode definition and endorse it if their organization approved it. Finally, the transaction is submitted to the ordering service, and then it commits chaincode definition to the channel.\cite{chaincode}
+    \end{itemize}
+    \subsection{Membership Service Provider (MSP)}
+    As discussed earlier, Fabric is considered as a permissioned network. Therefore, all participants of the network should be identifiable. Public Key Infrastructure (PKI) can provide verifiable identities. Certificate Authorities, as a part of PKI, generate public and private keys in the form of key-value pairs. Such keys can be used to verify identity. The private key should not be shared publicly, therefore a component is needed for verifying the issued identities, and that is the role of the MSP.\\
+    For example, when a peer uses its private key to endorse a transaction, the MSP of the ordering service contains its public key that can confirm the validity of the signature. This example shows the concept that how the MSP can be used to verify identities. MSPs are mainly used to define trusted organizations in the network. They also assign a set of roles and permissions to the network members. Finally, when a new member joins the network, MSP can allow it to participate in the permissioned network in the following steps:
+    First, the new member should have an identity issued by a Certificate Authority. Next, the member should become a member of an existing organization in the network. To this aim, the new member's public key is added to the organization's MSP. Then the MSP should be added to a consortium on the network. Finally, it should be ensured that policy definitions of the network include the MSP.\\
+    The implementation of Membership Service Provider includes adding a set of folders to network configuration. It includes the list of accepted Certificate authorities for issuing valid identities. More importantly, MSP defines different roles in the network by identifying the privileges of a network member. Additionally, an MSP may include a list of revoked identities.\\
+    MSPs include two domains: Local MSP that occurs on an actor's node, and the Channel MSP occurring in the channel configuration. The functionality of both domains is turning identities into roles. However, their scope is different.
+    Local MSPs are defined for clients, peers, and orderers. Local MSPs of clients allow the users to authenticate themselves in transactions. Every node should have a local MSP since it includes the definition of rights for the node. The orderer nodes also have a local MSP that includes the list of trusted members for that nodes. Besides, in Fabric the endorsement of chaincode execution is separated from the ordering, the performance and scalability are improved.\cite{membershipService}.
+    \subsection{The Ordering Service}
+    In Hyperledger Fabric ordering service consists of a set of ordering nodes and is mainly responsible for the ordering of transactions. The ordering service mechanism ensures that the validated blocks are final and correct.
+    Ordering nodes also contain the list of organizations that are allowed to create channels. The list is called consortium and stored in the configuration of the ordering system channel. Ordering nodes also maintain the access control for channels, by making restrictions on members for reading and writing data to them.\\
+    There are three different implementations for ordering service including Raft, Kafka, and Solo. Raft is recommended and the other two are deprecated. The Fabric implementation of Raft uses a leader-follower model. In a channel, the leader gets elected among other ordering nodes and replicates messages to the following nodes. Raft is considered to be crash fault-tolerant (CFT). It means the system can withstand the loss of nodes, as long as the majority of nodes remain functioning.\cite{orderService}
+
+    \section{Transaction Flow}
+    In this section, a use case is considered to explain the transaction flow in a Fabric network. In the scenario, there are two clients, A and B, that sell and buy products. Each client has a peer on the network for sending transactions and interaction with the ledger.\\
+    In this scenario, it is assumed that a channel is running. By using the Certificate Authority of the organization, the application user has registered and can authenticate to the network.\\
+    The chaincode is also installed on the peers and deployed to the channel. It contains a set of key-value pairs that set the initial state for the product market. In the chaincode a set of transactions are defined. The endorsement policy for the network states that peerA and peerB must endorse each of the transactions\cite{transactionFlow}.
+    \subsection{Client initiates transaction}
+    First Client A sends a request for purchasing products. According to the endorsement policy, both peers must endorse any transaction. Therefore, the request is sent to peerA and peerB, which are representative of Client A and B.\\
+    In the next step, an application uses one of the available APIs for generating a proposal which is used for reading or updating the ledger. The proposal invokes a function with a set of input arguments for interacting with the ledger.\\
+    The SDK packages the transaction proposal into a proper format. Furthermore, by taking the user's cryptographic credentials, it produces a signature for the transaction proposal.
+    \subsection{Endorsing peers verify signature \& execute the transaction}
+    The endorsing peers are responsible for verification of multiple cases:
+    \begin{itemize}
+        \item The transaction proposal is formed correctly.
+        \item The transaction was not submitted before to protect against replay-attack.
+        \item By using the Membership Service Provider, it is verified that the signature is valid
+        \item They verify that the entity that submits the proposal is authorized to operate.
+    \end{itemize}
+    The transaction proposal inputs are used as the arguments for the invoked function in the chaincode. The result of the executed transaction includes a response value and key-value pairs that are used for creating or updating an asset. At this stage, no updates are made. The sets of the response values and the signature of the endorsing peer is passed to the SDK. These results are then used in the corresponding application.
+    \subsection{Proposal responses are inspected}
+    In the application, the endorsing peers' signatures are verified. Then the proposal responses are compared to check that they are the same. The chaincode can be either querying the ledger or updating it. In the former case, only query response is checked and the transaction is not submitted to the ordering service. In case of an update, it is checked that if the criteria for endorsement policy are met. In this example, it is the endorsement by peerA and peerB. Even if the responses are not inspected by application or an unendorsed transaction is forwarded, the endorsement policy will be enforced at the commit validation phase.
+    \subsection{Client assembles endorsements into a transaction}
+    A transaction message is broadcast to the ordering service by the application. The message contains the transaction proposal and response. The read/write sets, the signatures of the endorsing peers, and Channel ID are included in the transaction. The ordering service is responsible for sequentially ordering the transactions by channel, and creating blocks for each channel.
+    \subsection{Transaction is validated and committed}
+    The transaction blocks are sent to all peers on the channel. The transactions are then validated for mainly two reasons. First, to ensure the endorsement policy is met. Second, to check that the state of the ledger for the read set has not been changed since the transaction execution. Finally, transactions in a block are tagged either valid or invalid based on these checks.
+    \subsection{Ledger updated}
+    The block will be appended by peers to the channel's ledger. Then the write sets are committed to the state database for valid transactions. Each peer sends a notification event to the client application. The notification shows that the transaction is appended to the ledger, and it also indicates that whether the transaction was validated or invalidated.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{seq.png}
+        \caption{A sequence diagram for the transaction flow (\url{https://hyperledger-fabric.readthedocs.io/en/release-2.2/txflow.html}).}
+        \Description{A sequence diagram for the transaction flow}
+    \end{figure}
+
+    \section{Use Case - Supply Chain}
+    A supply chain is a collection of different entities which cooperate together with the main goal of chaining the processes of producing, delivering and managing groups of products.\cite{techtarget} Typical entities include retailers, warehouses, vendors, operation centers and furthermore. The amount of organizations can be different, but given that even with only a manufacturer and a retailer there's already a miniature functional supply chain, we chose this as our go-to use case. In brief, the application works by requesting products to the manufacturer, the latter producing these and afterwards consuming them as a retailer.
+    \subsection{Manage the test network}
+    Hyperledger Fabric offers a test network built on Docker Compose and binaries to interact with the docker images.\cite{hyperledger} In our current scenario the two entities are peer0.org1.example.com and peer0.org2.example.com, which represent the retailer and manufacturer respectively. We've also built two binaries switchToOrg1.sh and switchToOrg2.sh which allow us to behave as either of them when interacting with the network. The main binary provided by Fabric is network.sh, of which we will use the down, createChannel up, deployCC flags to respectively turn off the test network, bring it up and create a channel between the two entities, deploy the created chaincode.
+    \subsection{Invoke the initialization of the ledger}
+    The transactions along with the business logic are written mostly in the supply-chain-project/supply-chain/chaincode-go/chaincode/
+    smartcontract.go file. The InitLedger function initializes the ledger along with creating certain objects and state.
+    \subsection{Request a product, manufacture it and consume it}
+    Requesting a product is as simple as using the peer binary and invoking the RequestProduct transaction. In the call we should also specify the ID and description of the said product. This creates a new product with a state REQUESTED and pushes it to the state through the TransactionContextInterface object. Swapping as a retailer and calling the ManufactureRequestedProducts transaction, it fetches all products in the state, filters only those with REQUESTED status, manufactures them and puts them back in the state but now with a MANUFACTURED state. Finally swapping as a retailer, the ConsumeProduct transaction with the specified ID as an argument removes the product from the state and an be used as deemed necessary by the retailer.
+    \subsection{Transitioning to production}
+    One of the main advantages of Hyperledger Fabric is its high modularity when it comes to production. One thing to note is that the test network that Fabric provides is not representative of a network blueprint for deploying production components due to various assumptions it makes.\cite{techtarget} Amongst the different steps of this process, the essential ones are deciding on the network configuration, setting up the CAs and finally the peers and ordering nodes.
+
+    \section{Citations and Bibliographies}
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+
+%\bibliographystyle{ACM-Reference-Format}
+%\bibliography{sample-base}
+    \printbibliography
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-authordraft.tex'.
