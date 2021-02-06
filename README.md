@@ -1,18 +1,18 @@
-# Interacting with the project.
+# Interacting with the project
 
-Below are mentioned some transactions, interfaces and commands which fetch current products, request a new one and
-finally consume it. This document has been limited to technical aspects only given that the report will cover further
-concepts. Note that the chaincode is contained in the supply-chain folder.
+Hyperledger Fabric implementation of a supply chain scenario. This document has been limited to technical aspects only,
+given that the report will cover further concepts. Below are mentioned some transactions, interfaces and commands which fetch current products, request a new one and
+finally consume it.  Note that the chaincode is contained in the supply-chain folder.
 supply-chain/chaincode-go/chaincode/smartcontract.go has the main business logic of the demo.
 
-transactions (additional transactions not mentioned in this simple demo):
+#### transactions (additional transactions not mentioned in this simple demo):
 
 - request product (retailer asks for some products, pushes request to state)
 - manufacture product (producer checks to see what's in the todo list for creating products, then builds them and pushes
   them to the state)
 - consume the product (retailer checks state for available products, consumes them)
 
-custom interfaces:
+#### custom interfaces:
 
 - Product {
     - ID,
